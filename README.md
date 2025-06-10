@@ -2,6 +2,8 @@
 
 The project leverages on Large Language Models (LLMs) and prompt engineering to create a research assistant that gives answers to your question based on what is available in the vector data base store on your deeplake account.
 
+![Research Assistant Flow Chart](img/Research%20Assistant.png)
+
 ### **How the project goes**
 - All files can only after installing all dependencies in the `environment.yml` file
 - The `notebook folder` contains the jupyter notebook file for testing the project as a whole and for experimenting
