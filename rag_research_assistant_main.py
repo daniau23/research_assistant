@@ -12,13 +12,23 @@ import time
 from dotenv import load_dotenv
 
 # loading .env
-load_dotenv('.env')
+# load_dotenv('.env')
+load_dotenv('../.env')
 
 
 # The Prompt
 def prompt():
     prompt_template_researcher = """
     As an NLP researcher, Give an in depth explanation for your the text the given text below in a brief manner. 
+    DO NOT REPEAT BUT BE IN DEPTH AND BRIEF. AT LEAST 5 bullet points where needed. For example:
+    Question: Why did Mehedi Tajrian analyse child development and what was the best classifier?
+    Answer:
+        -
+        -
+        -
+        -
+        -
+    \nIf Bullent points are not needed, summarise in one short paragraph
     If the text is a straightforward answer, be brief and simply answer without any form  deep explanation\n
     For example:
     Who authored the paper with Daniel Ihenacho?
@@ -52,7 +62,7 @@ def vector_database(cohere_key, my_activeloop_org_id, my_activeloop_dataset_name
     dataset_path = f"hub://{my_activeloop_org_id}/{my_activeloop_dataset_name}"
     # Pass activeloop_token if it's needed for authentication with the hub.
     try:
-        db = DeepLake(dataset_path=dataset_path, embedding=cohere_embeddings, read_only=True, token=activeloop_token)
+        db = DeepLake(read_only=True,dataset_path=dataset_path, embedding=cohere_embeddings)
         return db
     except ConnectionError as e:
         print(f"Error: {e}\nCannot connect to deeplake")
@@ -100,8 +110,13 @@ def final_formatted_answer(prompt_researcher,final_answer,compressed_docs,chat_m
 
 # The LLM model
 def llm_model(huggingface_token):
+    # repo_id = "microsoft/Phi-4-mini-instruct"
     repo_id = "mistralai/Mistral-7B-Instruct-v0.3"
+    # repo_id = "mistralai/Mistral-Small-24B-Instruct-2501" # This model works on Huggingface inference point free version
+    # repo_id = "mistralai/Magistral-Small-2506" # This model doesn't work on Huggingface inference point free version
     model_kwargs = {
+        "max_new_tokens": 1000, # Maximum tokens to generate
+        "max_length": 4000, # Maximum length of input + output
         "temperature": 0.1, 
         "timeout": 6000,
     }
