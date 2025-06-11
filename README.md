@@ -42,4 +42,6 @@ Before installing the dependencies in the `environment.yml` file. Kindly do the 
 - Run `python vector_database_creation.py` to create your vector database
 - Run `python rag_research_assistant_main.py` to run your research assistant.
 
+For example prompts, refer to prompts.md
+
 Happy prompting and may the RAG be with you young JEDI!

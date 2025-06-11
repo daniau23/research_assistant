@@ -12,9 +12,7 @@ import time
 from dotenv import load_dotenv
 
 # loading .env
-# load_dotenv('.env')
-load_dotenv('../.env')
-
+load_dotenv('.env')
 
 # The Prompt
 def prompt():
