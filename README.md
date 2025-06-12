@@ -44,4 +44,37 @@ Before installing the dependencies in the `environment.yml` file. Kindly do the 
 
 For example prompts, refer to prompts.md
 
+### **Example Usage**
+When `vector_database_creation.py` is ran, the following output is given when all criteria are met
+
+![vector_database_creation.png](img/vector_database_creation.png)
+
+When `rag_research_assistant_main.py is ran, the following example output is given
+
+**Question**
+
+`Why did Mehedi Tajrian analyse child development and what was the best classifier?`
+
+**Answer**
+```
+Mehedi Tajrian analyzed child development due to:
+    - The rapid spread of misinformation online complicating accurate decision-making, especially for parents.
+    - The lack of research into distinguishing myths and facts about child development using text mining and classification models.
+    - The potential risks of inaccurate information on child treatment and development.
+    - To provide valuable insights for making informed decisions, thus aiding parents in handling misinformation.
+    -To shed light on myths around child development and aid in making informed decisions. These include several stages, including data pre-processing through text mining techniques, and analysis with six traditional machine learning classifiers and one deep learning model using two feature extraction techniques.
+    -The best performing classifier is the Logistic Regression (LR) model with a 90% accuracy rate. The model also stands out for its speed and efficiency, with very low testing times per statement, and demonstrated robust performance on both k-fold and leave-one-out cross-validation.
+Source(s):
+- Title: Analysis of child development facts and myths using text mining techniques and classification models, Page: 1
+- Title: Analysis of child development facts and myths using text mining techniques and classification models, Page: 15
+- Title: Analysis of child development facts and myths using text mining techniques and classification models, Page: 2
+```
+
+Here is the Publication on;
+- [LinkedIn](https://www.linkedin.com/posts/daniel-ihenacho-637467223_nlp-datascience-genai-activity-7338907748442456066-wNcZ?utm_source=share&utm_medium=member_desktop&rcm=ACoAADgheMsBhliqOiWzMQCs2pi9jfojo2pW168) 
+- [ReadyTensor](https://app.readytensor.ai/publications/research-assistant-LstceSnb3IDH)
+
+### Issues faced:
+I did experience an [issue](https://github.com/langchain-ai/langchain/issues/31434) from the huggingface platform but was solved thanks to the open source community! Highly grateful to you all!
+
 Happy prompting and may the RAG be with you young JEDI!
