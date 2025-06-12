@@ -17,7 +17,9 @@ load_dotenv('.env')
 # The Prompt
 def prompt():
     prompt_template_researcher = """
-    As an NLP researcher, Give an in depth explanation for your the text the given text below in a brief manner. 
+    As an NLP researcher with over 20 years of experience. Your knowledge of the NLP research space is highly respected by all.
+    \nAlways answer the user's questions concisely and disregard any unuseful information by leveraging on the text provided.
+    \nAlways be brief but highlight key and important information only; THIS IS VERY IMPORTANT!
     DO NOT REPEAT BUT BE IN DEPTH AND BRIEF. AT LEAST 5 bullet points where needed. For example:
     Question: Why did Mehedi Tajrian analyse child development and what was the best classifier?
     Answer:
@@ -37,13 +39,13 @@ def prompt():
      - Jerry Peters
      - Bobby M. The First
     If the answer is not in the resource, vector database. Simply reply, I do not know the answer to this question👀
-    Text: {text}
-    Your answer should be 
-    {text}\n\n\n
+    Question: {question}
+    Retrieved Text: {text}
+    \n\n\n
+    Answer:
 
-    Full description:
     """
-    prompt_researcher_input_variables = ['text']
+    prompt_researcher_input_variables = ['text','question']
     prompt_researcher = PromptTemplate(
         template=prompt_template_researcher,
         input_variables=prompt_researcher_input_variables
@@ -60,7 +62,7 @@ def vector_database(cohere_key, my_activeloop_org_id, my_activeloop_dataset_name
     dataset_path = f"hub://{my_activeloop_org_id}/{my_activeloop_dataset_name}"
     # Pass activeloop_token if it's needed for authentication with the hub.
     try:
-        db = DeepLake(read_only=True,dataset_path=dataset_path, embedding=cohere_embeddings)
+        db = DeepLake(read_only=True,overwrite=False,dataset_path=dataset_path, embedding=cohere_embeddings)
         return db
     except ConnectionError as e:
         print(f"Error: {e}\nCannot connect to deeplake")
@@ -87,8 +89,8 @@ def compressed_docs(compression_retriever, question:str):
     return question, final_answer, compressed_docs
 
 # The Final Researcher answers
-def final_formatted_answer(prompt_researcher,final_answer,compressed_docs,chat_model):
-    researcher_input_data = {"text":final_answer.strip()}
+def final_formatted_answer(question,prompt_researcher,final_answer,compressed_docs,chat_model):
+    researcher_input_data = {"text":final_answer.strip(),"question":question.strip()}
     llm_researcher_chain = prompt_researcher | chat_model
     researcher_response = llm_researcher_chain.invoke(researcher_input_data)
     print(f"Researcher answer:\n{researcher_response.content}")
@@ -109,8 +111,8 @@ def final_formatted_answer(prompt_researcher,final_answer,compressed_docs,chat_m
 # The LLM model
 def llm_model(huggingface_token):
     # repo_id = "microsoft/Phi-4-mini-instruct"
-    repo_id = "mistralai/Mistral-7B-Instruct-v0.3"
-    # repo_id = "mistralai/Mistral-Small-24B-Instruct-2501" # This model works on Huggingface inference point free version
+    # repo_id = "mistralai/Mistral-7B-Instruct-v0.3"
+    repo_id = "mistralai/Mistral-Small-24B-Instruct-2501" # This model works on Huggingface inference point free version
     # repo_id = "mistralai/Magistral-Small-2506" # This model doesn't work on Huggingface inference point free version
     model_kwargs = {
         "max_new_tokens": 1000, # Maximum tokens to generate
@@ -190,7 +192,7 @@ while True:
                 print("Almost there!")
                 question, final_answer, compressed_docs_ = compressed_docs(reranker, question)
                 # Final Answers
-                final_formatted_answer(prompt_researcher, final_answer, compressed_docs_, chat_model)
+                final_formatted_answer(question,prompt_researcher, final_answer, compressed_docs_, chat_model)
             except Exception as e:
                 print(f"\n❌ An unexpected error occurred: \n{e}\n")
                 print("Something went wrong during question processing. Please try again.")
