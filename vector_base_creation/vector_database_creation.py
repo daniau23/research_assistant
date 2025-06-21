@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore")
 from dotenv import load_dotenv
 
 # loading .env
-load_dotenv('.env')
+load_dotenv('../.env')
 
 desktop = os.path.expanduser("~\Desktop")
 research_assistant = os.path.join(desktop,'research_assistant')
