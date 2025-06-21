@@ -39,7 +39,9 @@ Before installing the dependencies in the `environment.yml` file. Kindly do the 
     - `'(anaconda3)'C:\Users\your_system_name\Desktop\>`
     - `conda activate C:\Users\your_system_name\Desktop\research_assistant\rag`
 - Navigate to the folder of your project; `research_assistant` using `cd  research_assistant`
+- Navigate to the folder of your project; `vector_base_creation` using `cd  vector_base_creation`
 - Run `python vector_database_creation.py` to create your vector database
+- Navigate to the folder of your project; `rag_research_assistant` using `cd  rag_research_assistant`
 - Run `python rag_research_assistant_main.py` to run your research assistant.
 
 For example prompts, refer to prompts.md
