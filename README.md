@@ -5,10 +5,10 @@ The project leverages on Large Language Models (LLMs) and prompt engineering to 
 ![Research Assistant Flow Chart](img/Research%20Assistant.png)
 
 ### **How the project goes**
-- All files can only after installing all dependencies in the `environment.yml` file
+- All files can only work after installing all dependencies in the `environment.yml` file
 - The `notebook folder` contains the jupyter notebook file for testing the project as a whole and for experimenting
 - The `vector_database_creation.py` file is for creating the vector database resource for the LLM
-- The `rag_research_assistant_main.py` file is the main drivver code for the research assistant
+- The `rag_research_assistant_main.py` file is the main driver code for the research assistant
 - The initial data resources for the database creation can be found in the `research_articles.zip` file
 
 ### **Replicating this project**
